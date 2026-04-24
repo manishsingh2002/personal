@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Mind — Self-Development OS by Manish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold2:#F0D080;--gold3:rgba(201,168,76,0.12);
+  --bg:#060608;--bg2:#0D0D10;--bg3:#141418;--bg4:#1C1C22;
+  --border:rgba(255,255,255,0.07);--border2:rgba(201,168,76,0.25);
+  --text:#E8E5DC;--muted:#888880;--faint:#444440;
+  --green:#3DBE6A;--blue:#4A9EFF;--red:#E25555;--purple:#A78BFA;
+  --font-display:'Playfair Display',serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;mix-blend-mode:difference}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{transform:translate(-50%,-50%) scale(2);border-color:var(--gold)}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.35;pointer-events:none;z-index:1;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 3rem;
+  background:rgba(6,6,8,0.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.5px}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;font-weight:500}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:var(--font-mono);font-size:11px;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);background:transparent;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
+.nav-cta:hover{background:var(--gold);color:#000}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:8rem 3rem 5rem;
+  text-align:center;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 30%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:300px;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:2rem;
+  padding:6px 16px;border:1px solid var(--border2);background:var(--gold3);
+}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(52px,8vw,100px);
+  font-weight:900;
+  line-height:.95;
+  color:#fff;
+  letter-spacing:-3px;
+  margin-bottom:1.5rem;
+  position:relative;
+}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero h1 .line2{display:block;color:var(--muted);font-size:0.55em;letter-spacing:-1px;margin-top:.2em}
+.hero-sub{
+  font-size:16px;color:var(--muted);line-height:1.8;
+  max-width:560px;margin:0 auto 3rem;font-weight:300;
+}
+.hero-sub strong{color:var(--text);font-weight:500}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:16px 36px;background:var(--gold);color:#000;border:none;cursor:pointer;
+  transition:all .3s;font-weight:500;text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 20px 40px rgba(201,168,76,0.3)}
+.btn-secondary{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:16px 36px;background:transparent;color:var(--text);border:1px solid var(--border);cursor:pointer;
+  transition:all .3s;text-decoration:none;display:inline-block;
+}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{
+  display:flex;gap:4rem;justify-content:center;margin-top:5rem;
+  padding-top:3rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:3rem;
+}
+.hero-stat-num{font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--gold);line-height:1}
+.hero-stat-label{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;font-family:var(--font-mono)}
+
+/* SECTIONS COMMON */
+section{padding:8rem 3rem;position:relative}
+.section-inner{max-width:1100px;margin:0 auto}
+.eyebrow{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:4px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:1rem;
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.section-h2{
+  font-family:var(--font-display);
+  font-size:clamp(36px,5vw,64px);
+  font-weight:700;color:#fff;
+  letter-spacing:-2px;line-height:1.05;
+  margin-bottom:1.5rem;
+}
+.section-h2 em{color:var(--gold);font-style:italic}
+.section-lead{font-size:16px;color:var(--muted);line-height:1.8;max-width:600px;font-weight:300}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
+
+/* DAILY OS SECTION */
+.daily-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-top:4rem;border:1px solid var(--border)}
+.daily-cell{background:var(--bg2);padding:2rem;transition:background .3s}
+.daily-cell:hover{background:var(--bg3)}
+.daily-cell-time{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:.75rem}
+.daily-cell-title{font-size:16px;font-weight:500;color:#fff;margin-bottom:.5rem}
+.daily-cell-desc{font-size:13px;color:var(--muted);line-height:1.7}
+.daily-cell-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:1rem}
+.tag{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border:1px solid var(--faint);color:var(--muted)}
+.tag.gold{border-color:var(--border2);color:var(--gold)}
+
+/* RITUAL SECTION */
+.ritual-split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem;align-items:start}
+.ritual-col-label{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border2)}
+.ritual-item{
+  display:flex;align-items:flex-start;gap:1.25rem;
+  padding:1.25rem 0;border-bottom:1px solid var(--border);
+}
+.ritual-item:last-child{border:none}
+.ritual-num{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--faint);line-height:1;flex-shrink:0;width:40px}
+.ritual-text h4{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px}
+.ritual-text p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* PRINCIPLES */
+.principles-list{margin-top:4rem}
+.principle-row{
+  display:grid;grid-template-columns:80px 1fr 1fr;gap:3rem;
+  padding:2.5rem 0;border-bottom:1px solid var(--border);
+  align-items:start;transition:all .3s;cursor:default;
+}
+.principle-row:hover .principle-row-num{color:var(--gold)}
+.principle-row:first-child{border-top:1px solid var(--border)}
+.principle-row-num{font-family:var(--font-display);font-size:60px;font-weight:700;color:var(--faint);line-height:1;transition:color .3s}
+.principle-row-title{font-size:20px;font-weight:500;color:#fff;line-height:1.3;padding-top:.5rem}
+.principle-row-body{font-size:14px;color:var(--muted);line-height:1.8;padding-top:.5rem}
+
+/* MINDSET PILLARS */
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.pillar-card{
+  background:var(--bg2);border:1px solid var(--border);
+  padding:2.5rem 2rem;position:relative;overflow:hidden;
+  transition:all .4s;
+}
+.pillar-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform .4s;
+}
+.pillar-card:hover::before{transform:scaleX(1)}
+.pillar-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.pillar-icon{font-size:32px;margin-bottom:1.5rem;display:block}
+.pillar-title{font-size:18px;font-weight:500;color:#fff;margin-bottom:.75rem}
+.pillar-desc{font-size:13px;color:var(--muted);line-height:1.8}
+.pillar-accent{position:absolute;bottom:0;right:0;font-family:var(--font-display);font-size:80px;font-weight:700;color:rgba(255,255,255,0.02);line-height:1;pointer-events:none}
+
+/* CONFIDENCE */
+.confidence-steps{margin-top:4rem;display:flex;flex-direction:column;gap:0}
+.conf-step{
+  display:grid;grid-template-columns:60px 1fr auto;gap:2rem;
+  padding:2rem 0;border-bottom:1px solid var(--border);align-items:center;
+}
+.conf-step:first-child{border-top:1px solid var(--border)}
+.conf-step-num{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:2px}
+.conf-step-content h3{font-size:17px;font-weight:500;color:#fff;margin-bottom:.4rem}
+.conf-step-content p{font-size:13px;color:var(--muted);line-height:1.7}
+.conf-step-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;padding:6px 14px;border:1px solid var(--border2);color:var(--gold);text-transform:uppercase;white-space:nowrap}
+
+/* COMMUNICATION */
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:4rem}
+.comm-card{background:var(--bg2);padding:2.5rem;transition:background .3s}
+.comm-card:hover{background:var(--bg3)}
+.comm-card-label{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.comm-card-label::after{content:'';flex:1;height:1px;background:var(--border2)}
+.comm-card h3{font-size:20px;font-weight:500;color:#fff;margin-bottom:.75rem}
+.comm-card p{font-size:13px;color:var(--muted);line-height:1.8}
+.comm-card blockquote{
+  margin-top:1.5rem;padding:1.25rem;
+  background:rgba(201,168,76,0.05);border-left:2px solid var(--gold);
+  font-size:14px;color:var(--text);line-height:1.7;font-style:italic;
+}
+
+/* SCRIPTS */
+.scripts-section{margin-top:4rem}
+.script-item{
+  border:1px solid var(--border);margin-bottom:1rem;overflow:hidden;
+  transition:border-color .3s;
+}
+.script-item:hover{border-color:var(--border2)}
+.script-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.25rem 1.5rem;cursor:pointer;
+  background:var(--bg2);transition:background .2s;
+}
+.script-header:hover{background:var(--bg3)}
+.script-header-left{display:flex;gap:1rem;align-items:center}
+.script-situation{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.script-title{font-size:15px;font-weight:500;color:#fff}
+.script-arrow{color:var(--gold);transition:transform .3s;font-size:18px}
+.script-item.open .script-arrow{transform:rotate(180deg)}
+.script-body{
+  max-height:0;overflow:hidden;transition:max-height .4s ease;
+}
+.script-item.open .script-body{max-height:400px}
+.script-body-inner{padding:1.5rem;border-top:1px solid var(--border)}
+.script-text{font-size:14px;color:var(--text);line-height:1.8;font-style:italic;margin-bottom:.75rem}
+.script-why{font-size:12px;color:var(--muted);line-height:1.6}
+.script-why strong{color:var(--gold);font-weight:500}
+
+/* CAREER ROADMAP */
+.roadmap{margin-top:4rem;position:relative;padding-left:2rem}
+.roadmap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.2))}
+.roadmap-phase{position:relative;margin-bottom:3rem;padding-left:2.5rem}
+.roadmap-dot{
+  position:absolute;left:-2.5rem;top:4px;
+  width:14px;height:14px;background:var(--bg);
+  border:2px solid var(--gold);border-radius:50%;
+}
+.roadmap-phase:first-child .roadmap-dot{background:var(--gold)}
+.roadmap-phase-meta{display:flex;gap:1rem;align-items:center;margin-bottom:.75rem}
+.roadmap-phase-time{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:2px}
+.roadmap-phase-status{font-family:var(--font-mono);font-size:9px;padding:3px 8px;text-transform:uppercase;letter-spacing:1px}
+.status-now{background:rgba(61,190,106,.12);color:var(--green);border:1px solid rgba(61,190,106,.25)}
+.status-next{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.25)}
+.status-future{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+.roadmap-phase h3{font-size:22px;font-weight:500;color:#fff;margin-bottom:.5rem}
+.roadmap-phase p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.roadmap-metrics{display:flex;flex-wrap:wrap;gap:.5rem}
+.metric-chip{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;padding:4px 12px;border:1px solid var(--border);color:var(--muted)}
+
+/* WEEKLY REVIEW */
+.review-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:4rem}
+.review-card{background:var(--bg2);border:1px solid var(--border);padding:2rem}
+.review-q-num{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:.75rem}
+.review-q{font-size:17px;font-weight:500;color:#fff;margin-bottom:.75rem;line-height:1.4}
+.review-hint{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* AFFIRMATIONS */
+.affirmations-marquee{
+  overflow:hidden;white-space:nowrap;margin:4rem 0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;
+}
+.affirmations-track{
+  display:inline-block;animation:marquee 30s linear infinite;
+}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.affirmation-item{
+  display:inline-block;
+  font-family:var(--font-display);font-size:18px;font-style:italic;
+  color:var(--muted);margin-right:4rem;
+}
+.affirmation-item span{color:var(--gold)}
+
+/* PSYCHOLOGY STACK */
+.psych-stack{margin-top:4rem}
+.psych-row{
+  display:flex;gap:2rem;align-items:flex-start;
+  padding:2rem 0;border-bottom:1px solid var(--border);
+}
+.psych-row:last-child{border:none}
+.psych-icon-wrap{
+  width:48px;height:48px;flex-shrink:0;
+  border:1px solid var(--border2);background:var(--gold3);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.psych-content h3{font-size:16px;font-weight:500;color:#fff;margin-bottom:.4rem}
+.psych-content p{font-size:13px;color:var(--muted);line-height:1.7}
+.psych-content .action{
+  margin-top:.75rem;font-family:var(--font-mono);font-size:11px;
+  color:var(--gold);letter-spacing:1px;
+  padding:.5rem 1rem;background:var(--gold3);border:1px solid var(--border2);
+  display:inline-block;
+}
+
+/* INTERACTIVE CHECKLIST */
+.tracker-section{background:var(--bg2);padding:4rem 3rem;margin:4rem 0;border:1px solid var(--border)}
+.tracker-inner{max-width:1100px;margin:0 auto}
+.tracker-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.tracker-col-title{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem}
+.check-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;
+  transition:opacity .2s;
+}
+.check-item:last-child{border:none}
+.check-item.done{opacity:.4}
+.check-item.done .check-item-text{text-decoration:line-through;color:var(--muted)}
+.checkmark{
+  width:20px;height:20px;flex-shrink:0;
+  border:1.5px solid var(--faint);display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--bg);transition:all .2s;margin-top:1px;
+}
+.check-item.done .checkmark{background:var(--green);border-color:var(--green)}
+.check-item-text{font-size:14px;color:var(--text);line-height:1.5}
+.check-item-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* PROGRESS BARS */
+.progress-section{margin-top:2rem}
+.prog-item{margin-bottom:1.5rem}
+.prog-header{display:flex;justify-content:space-between;margin-bottom:.5rem}
+.prog-label{font-size:13px;color:var(--text)}
+.prog-val{font-family:var(--font-mono);font-size:12px;color:var(--gold)}
+.prog-bar{height:4px;background:var(--bg4)}
+.prog-fill{height:100%;background:var(--gold);position:relative;transition:width 1s ease}
+.prog-fill::after{
+  content:'';position:absolute;right:0;top:-4px;
+  width:12px;height:12px;background:var(--gold);border-radius:50%;
+  box-shadow:0 0 12px var(--gold);
+}
+
+/* FOOTER */
+footer{
+  padding:5rem 3rem 3rem;border-top:1px solid var(--border);
+  text-align:center;
+}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-logo{font-family:var(--font-display);font-size:48px;font-weight:700;color:#fff;margin-bottom:1rem}
+.footer-logo span{color:var(--gold)}
+.footer-sub{font-size:13px;color:var(--muted);margin-bottom:3rem}
+.footer-links{display:flex;justify-content:center;gap:3rem;list-style:none;margin-bottom:3rem}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color .2s;font-family:var(--font-mono)}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-family:var(--font-mono);font-size:10px;color:var(--faint);letter-spacing:2px}
+
+/* QUOTE SECTION */
+.quote-section{
+  padding:8rem 3rem;
+  background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(201,168,76,0.06),transparent);
+  text-align:center;
+}
+.quote-mark{font-family:var(--font-display);font-size:120px;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:-2rem}
+.big-quote{
+  font-family:var(--font-display);
+  font-size:clamp(24px,4vw,48px);
+  font-weight:700;color:#fff;
+  line-height:1.3;letter-spacing:-1px;
+  max-width:800px;margin:0 auto 1.5rem;
+}
+.big-quote em{color:var(--gold);font-style:italic}
+.quote-author{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+
+/* FADE IN ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:5rem 1.5rem}
+  .hero{padding:6rem 1.5rem 4rem}
+  .daily-grid{grid-template-columns:1fr}
+  .ritual-split{grid-template-columns:1fr}
+  .principle-row{grid-template-columns:50px 1fr;grid-template-rows:auto auto}
+  .principle-row-body{grid-column:2}
+  .pillars-grid{grid-template-columns:1fr}
+  .comm-grid{grid-template-columns:1fr}
+  .review-cards{grid-template-columns:1fr}
+  .tracker-grid{grid-template-columns:1fr}
+  .conf-step{grid-template-columns:50px 1fr}
+  .conf-step-tag{display:none}
+  .hero-stats{gap:2rem}
+  .scripts-section{margin-top:2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Apex<span>Mind</span></div>
+  <ul class="nav-links">
+    <li><a href="#daily">Daily OS</a></li>
+    <li><a href="#mindset">Psychology</a></li>
+    <li><a href="#confidence">Confidence</a></li>
+    <li><a href="#communication">Communication</a></li>
+    <li><a href="#career">Career</a></li>
+    <li><a href="#review">Review</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('tracker').scrollIntoView({behavior:'smooth'})">Start Today →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:2">
+    <div class="hero-badge">Self-Development OS · Built for Manish</div>
+    <h1>
+      Apex<em> Mind</em>
+      <span class="line2">Programme</span>
+    </h1>
+    <p class="hero-sub">
+      A ruthlessly practical system for <strong>career domination</strong>, 
+      <strong>unshakeable psychology</strong>, <strong>elite communication</strong>, 
+      and <strong>compounding confidence</strong> — engineered for the entrepreneur who refuses to settle.
+    </p>
+    <div class="hero-actions">
+      <a href="#daily" class="btn-primary">Open Daily OS</a>
+      <a href="#career" class="btn-secondary">View Roadmap</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Core Modules</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">90</div>
+        <div class="hero-stat-label">Day Programme</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">₹2.55L</div>
+        <div class="hero-stat-label">Target MRR</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Upside</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DAILY OS -->
+<section id="daily">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 01 — Daily Operating System</div>
+    <h2 class="section-h2 fade-in">How you spend the <em>day</em><br>is how you spend the life.</h2>
+    <p class="section-lead fade-in">Every elite performer has a daily architecture. This is yours — engineered around deep work, recovery, and compounding momentum.</p>
+
+    <div class="daily-grid fade-in">
+      <div class="daily-cell">
+        <div class="daily-cell-time">05:30 – 06:00</div>
+        <div class="daily-cell-title">Wake Ritual</div>
+        <div class="daily-cell-desc">No phone for 10 minutes. Cold water. 5 deep breaths. Your first thoughts set the chemical tone for the entire day — protect them like capital.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Non-negotiable</span><span class="tag">Identity</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">06:00 – 07:00</div>
+        <div class="daily-cell-title">Mind Architecture Block</div>
+        <div class="daily-cell-desc">3 gratitudes (specific, not generic). Read 10 pages of a mindset book. Write today's top 3 priorities. Speak your morning affirmation out loud.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Psychology</span><span class="tag">Clarity</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">07:00 – 09:30</div>
+        <div class="daily-cell-title">Deep Work Block 1</div>
+        <div class="daily-cell-desc">Zero interruptions. Phone off. No email. This is when you build Apex CRM, ship features, write code. Your peak cognitive window — never waste it on meetings.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Revenue-generating</span><span class="tag">DND</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">10:00 – 12:00</div>
+        <div class="daily-cell-title">Communication & Business Block</div>
+        <div class="daily-cell-desc">Client outreach, Apex CRM demos, follow-ups, Instagram content batch creation. Scheduled interactions live here — never bleed into deep work windows.</div>
+        <div class="daily-cell-tags"><span class="tag">Sales</span><span class="tag">Content</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">14:00 – 16:30</div>
+        <div class="daily-cell-title">Deep Work Block 2</div>
+        <div class="daily-cell-desc">Second most important task — StockLens content, Apex Mobile, backend engineering. Slightly lower cognitive peak than morning but still protected from interruptions.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Revenue-generating</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">17:00 – 18:00</div>
+        <div class="daily-cell-title">Learning Compound Block</div>
+        <div class="daily-cell-desc">1 new concept daily — Indian markets, psychology, architecture patterns, communication. Rotate categories weekly. Knowledge compounds like interest; start now.</div>
+        <div class="daily-cell-tags"><span class="tag">Skill Stack</span><span class="tag">Compound</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">20:00 – 21:00</div>
+        <div class="daily-cell-title">Strategy & Reflection Block</div>
+        <div class="daily-cell-desc">Review venture roadmaps. Update priorities. Write 1 win, 1 lesson. Plan tomorrow. Strategic thinking done consistently for 1 hour every night is the real competitive moat.</div>
+        <div class="daily-cell-tags"><span class="tag gold">CEO thinking</span><span class="tag">Journal</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">21:30 – 22:00</div>
+        <div class="daily-cell-title">Shutdown Ritual</div>
+        <div class="daily-cell-desc">Write the single most important task for tomorrow. Close all work. No screens 30 min before sleep. The day is complete. Tomorrow you start from a position of already knowing your mission.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Non-negotiable</span><span class="tag">Recovery</span></div>
+      </div>
+      <div class="daily-cell" style="background:var(--gold3);border:1px solid var(--border2)">
+        <div class="daily-cell-time" style="color:var(--gold2)">Rule of the Day</div>
+        <div class="daily-cell-title" style="color:#fff">Guard deep work like money</div>
+        <div class="daily-cell-desc" style="color:rgba(232,229,220,0.7)">Every person who gets access to your attention during a deep work block costs you 23 minutes of recovery. Deep work hours are your only true non-renewable resource.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Apex Rule</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL SECTION -->
+<div class="divider"></div>
+<section id="ritual">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 02 — Morning & Evening Rituals</div>
+    <h2 class="section-h2 fade-in">The first and last <em>60 minutes</em><br>control everything in between.</h2>
+    <p class="section-lead fade-in">These are not suggestions. These are the bookends that determine whether you are operating in reaction mode or creation mode.</p>
+    <div class="ritual-split">
+      <div class="fade-in">
+        <div class="ritual-col-label">☀️ Morning — The Launch Sequence</div>
+        <div class="ritual-item"><div class="ritual-num">01</div><div class="ritual-text"><h4>Protect the first 10 minutes</h4><p>No phone, no social, no news. Your subconscious is still highly programmable. Fill it with your own intentions — not someone else's agenda.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">02</div><div class="ritual-text"><h4>Cold water activation</h4><p>Cold water on face + neck triggers norepinephrine release. Instant alertness, better mood, sharper focus. 30-second investment, hours of payoff.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">03</div><div class="ritual-text"><h4>3 specific gratitudes</h4><p>Not "I'm grateful for my family." Try: "I'm grateful Apex CRM's dashboard is finally working." Specificity activates the reward circuit — not vague appreciation.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">04</div><div class="ritual-text"><h4>Speak your identity aloud</h4><p>"I am an entrepreneur who builds software businesses that transform Indian SMBs." Say it. Every morning. The repetition is the installation.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">05</div><div class="ritual-text"><h4>Write the One Thing</h4><p>Before opening any app: write the single task that, if completed today, would make everything else easier or irrelevant. That task gets done first.</p></div></div>
+      </div>
+      <div class="fade-in">
+        <div class="ritual-col-label">🌙 Evening — The Integration Sequence</div>
+        <div class="ritual-item"><div class="ritual-num">01</div><div class="ritual-text"><h4>The Win Log</h4><p>Write 1 win — no matter how small. Shipped a feature? Win. Had a good conversation? Win. Made a difficult decision? Win. Your brain needs proof of progress daily.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">02</div><div class="ritual-text"><h4>The Lesson Extract</h4><p>What did today teach you? 1 sentence. People who extract lessons daily compound wisdom 10x faster than those who just "experience" life without reflection.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">03</div><div class="ritual-text"><h4>Tomorrow's battle plan</h4><p>3 tasks. In order. Written the night before. When you wake up, you don't decide what to do — you execute. Decision fatigue is real. Eliminate it.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">04</div><div class="ritual-text"><h4>Energy audit</h4><p>Rate your energy today 1–10. What drained it most? What charged it? Track this weekly. Patterns reveal your true energy architecture — then you can engineer it.</p></div></div>
+        <div class="ritual-item"><div class="ritual-num">05</div><div class="ritual-text"><h4>Digital shutdown</h4><p>Close all work tabs. Put the phone in another room. Sleep is your most powerful performance-enhancing tool. Guard it with the same intensity as your deep work blocks.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFFIRMATIONS MARQUEE -->
+<div class="affirmations-marquee">
+  <div class="affirmations-track">
+    <span class="affirmation-item">I build with <span>discipline</span>, not luck.</span>
+    <span class="affirmation-item">My success is <span>inevitable</span>.</span>
+    <span class="affirmation-item">Every decision compounds <span>in my favour</span>.</span>
+    <span class="affirmation-item">I am the <span>architect</span> of my reality.</span>
+    <span class="affirmation-item">Problems are <span>my fuel</span>, not my ceiling.</span>
+    <span class="affirmation-item">I attract what I <span>consistently become</span>.</span>
+    <span class="affirmation-item">Confidence is a <span>skill I build</span> daily.</span>
+    <span class="affirmation-item">I build with <span>discipline</span>, not luck.</span>
+    <span class="affirmation-item">My success is <span>inevitable</span>.</span>
+    <span class="affirmation-item">Every decision compounds <span>in my favour</span>.</span>
+    <span class="affirmation-item">I am the <span>architect</span> of my reality.</span>
+    <span class="affirmation-item">Problems are <span>my fuel</span>, not my ceiling.</span>
+    <span class="affirmation-item">I attract what I <span>consistently become</span>.</span>
+    <span class="affirmation-item">Confidence is a <span>skill I build</span> daily.</span>
+  </div>
+</div>
+
+<!-- MINDSET / PSYCHOLOGY -->
+<section id="mindset">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 03 — Psychology & Mindset</div>
+    <h2 class="section-h2 fade-in">Your mind is either your<br><em>greatest asset</em> or your prison.</h2>
+    <p class="section-lead fade-in">The only difference between where you are and where you want to be is the software running in your head. Here is how you rewrite it.</p>
+
+    <div class="pillars-grid fade-in">
+      <div class="pillar-card">
+        <span class="pillar-icon">🧬</span>
+        <div class="pillar-title">Identity First, Behaviour Second</div>
+        <div class="pillar-desc">Stop trying to change habits. Change who you believe you are first. "I am trying to become a successful entrepreneur" loses to "I am an entrepreneur" every time. Actions flow from identity automatically.</div>
+        <div class="pillar-accent">01</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🔁</span>
+        <div class="pillar-title">Repetition is Firmware</div>
+        <div class="pillar-desc">Your brain does not distinguish between real and vividly imagined experience. Repeat a belief with emotion for 66+ days and it becomes a default operating system. Affirmations are not soft — they are neurological rewiring.</div>
+        <div class="pillar-accent">02</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🌊</span>
+        <div class="pillar-title">Emotional Mastery Framework</div>
+        <div class="pillar-desc">Any negative emotion lasts 90 seconds if you don't feed it a story. Name it ("this is anxiety"), locate it in the body, breathe 5–5–5. The wave passes. The story is what drowns you — not the emotion itself.</div>
+        <div class="pillar-accent">03</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🎯</span>
+        <div class="pillar-title">Stoic Control Filter</div>
+        <div class="pillar-desc">Before reacting to anything: Is this in my control? Your actions, your standards, your response — yes. Others' opinions, outcomes, market conditions, clients' decisions — no. Release what you cannot control. Master what you can.</div>
+        <div class="pillar-accent">04</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">⚡</span>
+        <div class="pillar-title">Energy is the Real Currency</div>
+        <div class="pillar-desc">You cannot think your way to success on 5 hours of sleep. Exercise, nutrition, and sleep are not lifestyle choices — they are performance infrastructure. A high-energy version of you solves problems the low-energy version calls impossible.</div>
+        <div class="pillar-accent">05</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🏆</span>
+        <div class="pillar-title">Win Architecture</div>
+        <div class="pillar-desc">Your brain has a negativity bias — it weighs bad 3× more than good. Counteract this forcefully: log wins daily, celebrate milestones loudly, review past achievements before hard conversations. Build evidence of your competence.</div>
+        <div class="pillar-accent">06</div>
+      </div>
+    </div>
+
+    <div class="section-title fade-in" style="margin-top:4rem;font-family:var(--font-mono);font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem">Daily psychology stack — execute every day</div>
+    <div class="psych-stack fade-in">
+      <div class="psych-row">
+        <div class="psych-icon-wrap">☀️</div>
+        <div class="psych-content">
+          <h3>Morning Gratitude — 2 minutes</h3>
+          <p>Write 3 specific gratitudes. The brain's reticular activating system filters reality based on what you tell it to look for. Tell it to look for abundance and opportunity — every single morning.</p>
+          <div class="action">→ Action: Write in notebook, not phone. Physical creates stronger neural imprinting.</div>
+        </div>
+      </div>
+      <div class="psych-row">
+        <div class="psych-icon-wrap">📖</div>
+        <div class="psych-content">
+          <h3>10-Minute Mindset Reading — daily</h3>
+          <p>Rotate: Psycho-Cybernetics (Maltz), The 48 Laws (Greene), Man's Search for Meaning (Frankl), Meditations (Aurelius), Think and Grow Rich (Hill). These are not books — they are operating system updates.</p>
+          <div class="action">→ Action: 10 pages minimum. Highlight 1 sentence to carry into the day.</div>
+        </div>
+      </div>
+      <div class="psych-row">
+        <div class="psych-icon-wrap">🏆</div>
+        <div class="psych-content">
+          <h3>Evening Win Log — 2 minutes</h3>
+          <p>Write 1 win every night without exception. On your worst days, this is most important. You are training your brain to scan for wins instead of losses. After 90 days, this rewires the default search pattern permanently.</p>
+          <div class="action">→ Action: 1 win + 1 lesson. Date it. Review monthly.</div>
+        </div>
+      </div>
+      <div class="psych-row">
+        <div class="psych-icon-wrap">🚫</div>
+        <div class="psych-content">
+          <h3>Energy Vampire Audit — weekly</h3>
+          <p>Every Sunday: identify what drained you most. Negative news, complaining conversations, social comparison, doomscrolling — these don't just waste time. They chemically degrade your decision-making for hours. Cut them with the same seriousness as financial waste.</p>
+          <div class="action">→ Action: Unfollow 3 accounts that trigger comparison. Block 1 distraction.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIDENCE -->
+<div class="divider"></div>
+<section id="confidence">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 04 — Confidence Architecture</div>
+    <h2 class="section-h2 fade-in">Confidence is a <em>skill</em>.<br>Not a personality trait.</h2>
+    <p class="section-lead fade-in">You are not born with it. You build it through kept promises to yourself, accumulated competence, and deliberate exposure to discomfort. Here is the exact architecture.</p>
+
+    <div class="confidence-steps fade-in">
+      <div class="conf-step">
+        <div class="conf-step-num">LAYER<br>01</div>
+        <div class="conf-step-content">
+          <h3>Physical Presence — Own the Room Before You Speak</h3>
+          <p>Chin level. Shoulders back. Feet shoulder-width. Walk 20% slower than feels natural. Take up more physical space when you sit. These are not aesthetics — posture feedback loops chemically signal dominance to your own amygdala within 2 minutes. Amy Cuddy's research confirms: body changes mind before mind changes body.</p>
+        </div>
+        <div class="conf-step-tag">Daily Practice</div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">LAYER<br>02</div>
+        <div class="conf-step-content">
+          <h3>Competence Confidence — Know Your Domains Cold</h3>
+          <p>Pick 3 areas and go 3 levels deeper than anyone in your room: Node.js/MongoDB architecture, Indian market psychology, and persuasion frameworks. When you know something at 3× the depth of anyone you're speaking to, confidence is not performed — it's structural. Deep preparation is the most underrated confidence hack.</p>
+        </div>
+        <div class="conf-step-tag">Build Weekly</div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">LAYER<br>03</div>
+        <div class="conf-step-content">
+          <h3>Self-Promise Integrity — The Real Foundation</h3>
+          <p>Every time you say you'll do something and you don't, you make an unconscious deposit into your "I can't trust myself" account. Every kept promise — however small — makes a deposit into your confidence account. Start small: say you'll wake at 6am, do it. Say you'll write for 20 minutes, do it. Compound this for 90 days.</p>
+        </div>
+        <div class="conf-step-tag">Non-Negotiable</div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">LAYER<br>04</div>
+        <div class="conf-step-content">
+          <h3>Rejection Immunity — Collect NOs as a Strategy</h3>
+          <p>Set a daily rejection quota: 1 ask that might get a no. A cold DM to a potential Apex CRM client. A bold pitch. A partnership ask. A content collab. The person who fears rejection is controlled by every person they meet. The person who courts rejection is controlled by no one. After 90 days of 1 rejection/day, the fear completely dissolves.</p>
+        </div>
+        <div class="conf-step-tag">Daily Drill</div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">LAYER<br>05</div>
+        <div class="conf-step-content">
+          <h3>Vocal Command — Make Your Voice a Power Tool</h3>
+          <p>Speak 20% slower than feels comfortable. Pause 2–3 seconds before answering important questions. Project from the chest, not the throat. Use silence instead of filler words — silence signals that your words are chosen, not scattered. Record yourself for 5 minutes weekly and review. Your voice is the primary instrument of your personal brand.</p>
+        </div>
+        <div class="conf-step-tag">Weekly Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNICATION -->
+<div class="divider"></div>
+<section id="communication">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 05 — Communication Mastery</div>
+    <h2 class="section-h2 fade-in">The ability to communicate is the<br><em>multiplier</em> on every other skill.</h2>
+    <p class="section-lead fade-in">You can be the best developer in India, have the best product, and still lose deals because of how you communicate. This module removes that constraint permanently.</p>
+
+    <div class="comm-grid fade-in">
+      <div class="comm-card">
+        <div class="comm-card-label">Principle 01</div>
+        <h3>Listen to Understand, Not to Reply</h3>
+        <p>Most people formulate their reply before the other person finishes speaking. This is why they miss the real ask underneath the surface ask. Fully hear. Then pause 2 seconds. Then respond. This single shift makes you the most memorable person in any room.</p>
+        <blockquote>"The most important skill in communication is hearing what isn't being said." — Peter Drucker</blockquote>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-label">Principle 02</div>
+        <h3>Lead With Their Interest, Not Yours</h3>
+        <p>In every sale, pitch, or negotiation: start by understanding what they want. Then show how your solution serves that specific want. "Here's what I built" loses to "Here's how what I built solves the exact problem you described" every time. Selflessness is a sales strategy.</p>
+        <blockquote>"People don't care how much you know until they know how much you care." — Theodore Roosevelt</blockquote>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-label">Principle 03</div>
+        <h3>Economy of Words — Power Through Restraint</h3>
+        <p>Low-status communicators over-explain, justify, and fill silence. High-status communicators make a statement and stop. If you've made a request and someone pushes back, re-state it once calmly. Do not negotiate against yourself. The person who says the least in any negotiation usually wins.</p>
+        <blockquote>"To use two words where one will do is to write in prose what could be a poem."</blockquote>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-label">Principle 04</div>
+        <h3>Mirror, Match, and Lead</h3>
+        <p>Subtly match the energy, pace, and vocabulary of who you speak with. Use their exact words back to them — it creates a deep "they understand me" response. Then gradually shift your energy up or down, and they will unconsciously follow. This is not manipulation — it is rapport architecture.</p>
+        <blockquote>"The art of communication is the language of leadership." — James Humes</blockquote>
+      </div>
+    </div>
+
+    <div class="section-title fade-in" style="margin-top:4rem;font-family:var(--font-mono);font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem">High-Stakes Scripts — Copy, Practice, Own</div>
+    <div class="scripts-section fade-in">
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div class="script-header-left">
+            <div><div class="script-situation">Client Acquisition</div><div class="script-title">The Discovery Opener — First Sales Call</div></div>
+          </div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"Before we get into anything about Apex CRM — can you help me understand what your business looks like right now when it comes to managing clients and invoicing? What's the biggest frustration in that process for you personally?"</div>
+          <div class="script-why"><strong>Why it works:</strong> You are not selling — you are diagnosing. People trust doctors more than salespeople because doctors ask first. This opener makes you the expert in the room while gathering the exact ammunition to close the deal with their own words.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div class="script-header-left">
+            <div><div class="script-situation">Objection Handling</div><div class="script-title">The "Too Expensive" Flip</div></div>
+          </div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"I understand — price is always a real consideration. Let me ask you this: if the cost concern weren't there, is this something that solves the problem you described? Because I want to know if we're aligned on value first — then let's see what we can work out on structure."</div>
+          <div class="script-why"><strong>Why it works:</strong> It separates value alignment from price objection. If they say "yes" — the objection was never about price, it was about doubt. Now you address doubt. If they say "no" — they were never a real buyer and you saved yourself 3 follow-up calls.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div class="script-header-left">
+            <div><div class="script-situation">Commanding Respect</div><div class="script-title">Opening a Pitch or Presentation</div></div>
+          </div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"I'm going to share something with you in the next 10 minutes that I think is going to change how you think about managing your business. After that, if it doesn't land — no pressure, no follow-up. But I want to earn your full attention for those 10 minutes. Fair?"</div>
+          <div class="script-why"><strong>Why it works:</strong> You create a contained high-stakes container. You demonstrate confidence in your product. You remove the sales pressure they are guarding against. "Fair?" invites participation — they are now a willing participant, not a defensive prospect.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div class="script-header-left">
+            <div><div class="script-situation">Negotiation</div><div class="script-title">Holding Your Price With Dignity</div></div>
+          </div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"I respect that you're working within a budget. My pricing reflects the depth of what I've built and the ongoing support you'll get. I can't move on price — but I can make sure every rupee delivers 10× in value. What I can do is start you with [module X] and expand as you see results."</div>
+          <div class="script-why"><strong>Why it works:</strong> You hold value without apology. You create an on-ramp that feels generous. You shift from a price negotiation to a scope conversation. This closes deals that would otherwise die on price — and preserves your positioning for the long term.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div class="script-header-left">
+            <div><div class="script-situation">Daily Social</div><div class="script-title">Making Any Conversation Memorable</div></div>
+          </div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">Replace "How are you?" with: "What's the most interesting thing you're working on right now?" — or — "What's the one problem you haven't solved yet that's occupying the most mental space?"</div>
+          <div class="script-why"><strong>Why it works:</strong> These questions trigger genuine reflection. People rarely get asked questions that treat them as thinking, interesting humans. When you ask this, you become the most memorable person in the room. You get real intelligence. And you immediately position yourself as a peer-level thinker — not a small-talker.</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER ROADMAP -->
+<div class="divider"></div>
+<section id="career">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 06 — Career Architecture</div>
+    <h2 class="section-h2 fade-in">Build the empire<br><em>systematically</em>.</h2>
+    <p class="section-lead fade-in">Five ventures. One ecosystem. ₹2.55L/mo MRR target. Here is the 12-month execution roadmap with the exact milestones that matter.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem" class="fade-in">
+      <div>
+        <div class="roadmap">
+          <div class="roadmap-phase">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-phase-meta">
+              <span class="roadmap-phase-time">NOW – MONTH 3</span>
+              <span class="roadmap-phase-status status-now">Active</span>
+            </div>
+            <h3>Foundation & First Revenue</h3>
+            <p>Land 3 Apex CRM clients (target: trading companies first). Ship Apex Mobile MVP. Grow Billionaire Thinking to 10k followers. Build daily execution habits that don't break.</p>
+            <div class="roadmap-metrics">
+              <span class="metric-chip">3 CRM Clients</span>
+              <span class="metric-chip">₹30k/mo MRR</span>
+              <span class="metric-chip">10k IG</span>
+              <span class="metric-chip">Apex Mobile MVP</span>
+            </div>
+          </div>
+          <div class="roadmap-phase">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-phase-meta">
+              <span class="roadmap-phase-time">MONTH 3 – 8</span>
+              <span class="roadmap-phase-status status-next">Next</span>
+            </div>
+            <h3>Scale & Systems</h3>
+            <p>Scale to 10+ CRM clients with a repeatable sales process. Launch StockLens paid course (₹2,999–₹4,999 price point). Grow Instagram to 50k. Hire 1 VA. Systems replace hustle — you operate, not execute.</p>
+            <div class="roadmap-metrics">
+              <span class="metric-chip">10 CRM Clients</span>
+              <span class="metric-chip">₹80k/mo MRR</span>
+              <span class="metric-chip">StockLens Course</span>
+              <span class="metric-chip">50k IG</span>
+            </div>
+          </div>
+          <div class="roadmap-phase">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-phase-meta">
+              <span class="roadmap-phase-time">MONTH 8 – 12</span>
+              <span class="roadmap-phase-status status-future">Future</span>
+            </div>
+            <h3>Ecosystem Dominance</h3>
+            <p>₹2.55L/mo MRR across all ventures. TripBuddy launch. Team of 3. You operate as CEO — not operator. The ecosystem feeds itself and you work on the system, not in it.</p>
+            <div class="roadmap-metrics">
+              <span class="metric-chip">₹2.55L MRR</span>
+              <span class="metric-chip">Team of 3</span>
+              <span class="metric-chip">TripBuddy Live</span>
+              <span class="metric-chip">CEO Mode</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border2)">Career acceleration principles</div>
+        <div class="principles-list">
+          <div class="principle-row" style="grid-template-columns:50px 1fr;gap:1.5rem;padding:1.5rem 0">
+            <div class="principle-row-num" style="font-size:40px">01</div>
+            <div>
+              <div class="principle-row-title" style="font-size:15px">Stack identity, not just skills</div>
+              <div class="principle-row-body" style="font-size:13px;margin-top:.3rem">You are not a developer who does business. You are an entrepreneur who builds software businesses. Identity shapes every decision you make before you even realize you're deciding.</div>
+            </div>
+          </div>
+          <div class="principle-row" style="grid-template-columns:50px 1fr;gap:1.5rem;padding:1.5rem 0">
+            <div class="principle-row-num" style="font-size:40px">02</div>
+            <div>
+              <div class="principle-row-title" style="font-size:15px">Revenue is your only report card</div>
+              <div class="principle-row-body" style="font-size:13px;margin-top:.3rem">Every 90 days: if revenue didn't move, your strategy is broken — not your effort. Diagnose, pivot, retest. No excuses accepted. No story-telling to yourself permitted.</div>
+            </div>
+          </div>
+          <div class="principle-row" style="grid-template-columns:50px 1fr;gap:1.5rem;padding:1.5rem 0">
+            <div class="principle-row-num" style="font-size:40px">03</div>
+            <div>
+              <div class="principle-row-title" style="font-size:15px">Build assets, not income streams</div>
+              <div class="principle-row-body" style="font-size:13px;margin-top:.3rem">Code is an asset. Audience is an asset. Client list is an asset. A course is an asset. Salary is income that expires the moment you stop trading time. Engineer your life for assets.</div>
+            </div>
+          </div>
+          <div class="principle-row" style="grid-template-columns:50px 1fr;gap:1.5rem;padding:1.5rem 0;border:none">
+            <div class="principle-row-num" style="font-size:40px">04</div>
+            <div>
+              <div class="principle-row-title" style="font-size:15px">Protect deep work like cash</div>
+              <div class="principle-row-body" style="font-size:13px;margin-top:.3rem">4–5 hours of daily uninterrupted deep work is worth more than 10 hours of scattered effort. Guard it with the same aggression as your money. It is your real competitive advantage.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE TRACKER -->
+<div id="tracker" class="tracker-section">
+  <div class="tracker-inner">
+    <div class="eyebrow">Today's Execution Tracker</div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,3vw,42px);font-weight:700;color:#fff;letter-spacing:-1px;margin-bottom:.5rem">Check off as you <em style="color:var(--gold)">execute</em>.</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:0">Every checked box is a kept promise to yourself. These compound into who you become.</p>
+
+    <div class="tracker-grid">
+      <div>
+        <div class="tracker-col-title">☀️ Morning Ritual</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">No phone for first 10 minutes</div><div class="check-item-sub">Protect your first thoughts — they set the chemical tone of the day</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Cold water + deep breathing</div><div class="check-item-sub">Norepinephrine activation — instant alertness</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Write 3 specific gratitudes</div><div class="check-item-sub">Specific, not generic — trains the RAS to scan for abundance</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Say morning identity statement aloud</div><div class="check-item-sub">"I am an entrepreneur building software businesses..."</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Write today's One Thing</div><div class="check-item-sub">The single task that makes everything else easier</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">10 minutes mindset reading</div><div class="check-item-sub">Books: Psycho-Cybernetics / 48 Laws / Meditations</div></div>
+        </div>
+        <div style="margin-top:2rem">
+          <div class="tracker-col-title">💼 Career Actions</div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">Deep Work Block 1 completed (2.5 hrs)</div><div class="check-item-sub">Zero interruptions — revenue-generating task only</div></div>
+          </div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">1 Apex CRM outreach or follow-up sent</div><div class="check-item-sub">Trading companies first — use the discovery opener script</div></div>
+          </div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">1 piece of Instagram content created</div><div class="check-item-sub">Billionaire Thinking — use the post generator tool</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tracker-col-title">🧠 Mindset & Confidence</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Power pose for 2 minutes</div><div class="check-item-sub">Before any important meeting or call — posture first</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">1 rejection collected (bold ask made)</div><div class="check-item-sub">Cold DM, pitch, partnership ask — collect the NO</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Practised 1 communication script</div><div class="check-item-sub">Out loud, even alone — repetition is installation</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark"></div>
+          <div><div class="check-item-text">Initiated 1 meaningful conversation</div><div class="check-item-sub">Ask: "What's the most interesting thing you're working on?"</div></div>
+        </div>
+        <div style="margin-top:2rem">
+          <div class="tracker-col-title">🌙 Evening Ritual</div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">Write today's 1 win</div><div class="check-item-sub">No matter how small — the log is the habit</div></div>
+          </div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">Write today's 1 lesson</div><div class="check-item-sub">What would you do differently? 1 sentence only.</div></div>
+          </div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">Plan tomorrow's top 3 tasks</div><div class="check-item-sub">Written, in order, before you close the day</div></div>
+          </div>
+          <div class="check-item" onclick="check(this)">
+            <div class="checkmark"></div>
+            <div><div class="check-item-text">Digital shutdown (no screens 30 min before sleep)</div><div class="check-item-sub">Sleep is performance infrastructure — protect it</div></div>
+          </div>
+        </div>
+        <div id="progress-wrap" style="margin-top:2rem;display:none">
+          <div class="tracker-col-title">Today's Completion</div>
+          <div class="progress-section">
+            <div class="prog-item">
+              <div class="prog-header"><span class="prog-label">Daily Execution</span><span class="prog-val" id="prog-pct">0%</span></div>
+              <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <p id="progress-msg" style="font-size:13px;color:var(--muted);margin-top:.75rem;font-style:italic"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW -->
+<section id="review">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 07 — Weekly & Quarterly Review</div>
+    <h2 class="section-h2 fade-in">Execution without <em>reflection</em><br>is just motion.</h2>
+    <p class="section-lead fade-in">Every Sunday: 30 minutes that determines the quality of the next 7 days. Every 90 days: the session that reshapes your trajectory.</p>
+    <div class="review-cards fade-in">
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY · Q1</div>
+        <div class="review-q">What were my 3 biggest wins this week?</div>
+        <div class="review-hint">Not just task completion — genuine momentum wins. Something that moved a needle. Something that built a skill. Something that proved your capabilities to yourself.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY · Q2</div>
+        <div class="review-q">What drained me most — and what does that reveal?</div>
+        <div class="review-hint">Your energy drains are diagnostic data. If shallow tasks drained you, your architecture is broken. If certain people drained you, your network needs pruning. Don't just track it — act on it.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY · Q3</div>
+        <div class="review-q">What percentage of time went to income-generating vs comfort tasks?</div>
+        <div class="review-hint">Honest accounting. Deep work, client development, content creation, product building — these generate income. Reorganising files, answering non-urgent messages, fixing UI details nobody asked for — these are comfort tasks. Know the ratio.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY · Q4</div>
+        <div class="review-q">What is the 1 lever that would have made this week 10× better?</div>
+        <div class="review-hint">There is always one constraint — one bottleneck that, if eliminated, changes everything. Identify it. Make it your #1 priority next week. Fixing secondary problems while the primary constraint exists is just rearranging furniture.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">QUARTERLY · Q1</div>
+        <div class="review-q">Am I playing to strengths or managing weaknesses?</div>
+        <div class="review-hint">Elite performers double down on strengths and delegate, ignore, or accept weaknesses. If you're spending 60% of time in areas where you're average, you're building a ceiling, not a tower. Restructure.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">QUARTERLY · Q2</div>
+        <div class="review-q">Are my top 3 relationships pulling me up or holding me down?</div>
+        <div class="review-hint">You become the average of the 5 people you spend the most time with — in ambition, income, mindset, and belief about what's possible. Audit ruthlessly every 90 days. This is not cold — it is the most important strategic decision you make repeatedly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG QUOTE -->
+<div class="quote-section">
+  <div class="quote-mark">"</div>
+  <div class="big-quote">The version of you that is <em>capable of</em> everything you want already exists. Your only job is to <em>become them</em> — systematically, relentlessly, daily.</div>
+  <div class="quote-author">Apex Mind · Built for Manish</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Apex<span>Mind</span></div>
+    <div class="footer-sub">Self-Development OS · Career · Psychology · Confidence · Communication</div>
+    <ul class="footer-links">
+      <li><a href="#daily">Daily OS</a></li>
+      <li><a href="#mindset">Psychology</a></li>
+      <li><a href="#confidence">Confidence</a></li>
+      <li><a href="#communication">Communication</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#review">Review</a></li>
+    </ul>
+    <div class="footer-copy">APEX MIND PROGRAMME · DESIGNED FOR MANISH · BUILT TO WIN</div>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+});
+
+// Fade in on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// Checkboxes
+let total=0,done=0;
+function check(el){
+  el.classList.toggle('done');
+  const chk=el.querySelector('.checkmark');
+  if(el.classList.contains('done')){chk.textContent='✓';done++}
+  else{chk.textContent='';done=Math.max(0,done-1)}
+  updateProgress();
+}
+function updateProgress(){
+  const all=document.querySelectorAll('.check-item').length;
+  const checked=document.querySelectorAll('.check-item.done').length;
+  const pct=Math.round((checked/all)*100);
+  document.getElementById('progress-wrap').style.display='block';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+  const msgs=['Keep going — every checked box is a deposit into your confidence account.','Building momentum. This is what discipline looks like.','Over halfway — you are outperforming most people today.','Almost there. Finish strong — the evening ritual seals the day.','100%. You kept every promise to yourself today. This is who you are becoming.'];
+  const idx=pct===100?4:pct>=75?3:pct>=50?2:pct>=25?1:0;
+  document.getElementById('progress-msg').textContent=msgs[idx];
+}
+
+// Scripts accordion
+function toggleScript(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.script-item').forEach(s=>s.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+
+// Animate hero stats on load
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.fade-in').forEach((el,i)=>{
+    el.style.transitionDelay=(i*0.05)+'s';
+  });
+});
+</script>
+</body>
+</html>
