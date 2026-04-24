@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Mind — Executive OS by Manish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* APEX MIND - LIGHT MODE DESIGN SYSTEM 
+  Aesthetic: Premium SaaS, Executive Coaching, Editorial Minimalism
+*/
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Color Palette - Refined Light Mode */
+  --bg-main: #F5F5F7;          /* Apple-like off-white */
+  --bg-surface: #FFFFFF;       /* Pure white for cards */
+  --bg-surface-hover: #FAFAFA;
+  --bg-alt: #EAEAEF;
+  
+  --text-main: #1D1D1F;        /* Deep charcoal, softer than pure black */
+  --text-muted: #6E6E73;       /* Professional gray */
+  --text-faint: #A1A1A6;
+  
+  --gold-primary: #A67C00;     /* Deep, readable gold */
+  --gold-light: rgba(166, 124, 0, 0.08);
+  --gold-border: rgba(166, 124, 0, 0.3);
+  
+  --border-light: rgba(0, 0, 0, 0.06);
+  --border-med: rgba(0, 0, 0, 0.12);
+  
+  --success-color: #2E8B57;
+  --success-bg: rgba(46, 139, 87, 0.1);
+  --accent-slate: #2C3E50;
+  
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle dot grid background for structure */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: radial-gradient(var(--border-med) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.3; pointer-events: none; z-index: -1;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--text-faint); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 4rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.nav-logo { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+.nav-logo span { color: var(--gold-primary); font-style: italic; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text-main); }
+.nav-cta {
+  font-family: var(--font-mono); font-size: 11px; padding: 10px 24px; 
+  background: var(--text-main); color: #fff; border: none; border-radius: 4px;
+  cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.nav-cta:hover { background: var(--gold-primary); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; padding: 8rem 2rem 5rem; text-align: center;
+}
+.hero-content { max-width: 900px; margin: 0 auto; z-index: 2; position: relative; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  color: var(--gold-primary); text-transform: uppercase; margin-bottom: 2.5rem;
+  padding: 6px 16px; border: 1px solid var(--gold-border); background: var(--gold-light);
+  border-radius: 100px;
+}
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold-primary); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(48px, 7vw, 92px);
+  font-weight: 900; line-height: 1.05; color: var(--text-main);
+  letter-spacing: -2px; margin-bottom: 1.5rem;
+}
+.hero h1 em { color: var(--gold-primary); font-style: italic; font-weight: 700; }
+.hero-sub {
+  font-size: 18px; color: var(--text-muted); line-height: 1.7;
+  max-width: 650px; margin: 0 auto 3rem; font-weight: 400;
+}
+.hero-sub strong { color: var(--text-main); font-weight: 600; }
+
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 16px 36px; background: var(--text-main); color: #fff; border: 1px solid var(--text-main);
+  border-radius: 4px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover { background: var(--gold-primary); border-color: var(--gold-primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.btn-secondary {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 16px 36px; background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-med);
+  border-radius: 4px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-secondary:hover { border-color: var(--text-main); background: var(--bg-main); }
+
+.hero-stats {
+  display: flex; gap: 4rem; justify-content: center; margin-top: 5rem;
+  padding-top: 3rem; border-top: 1px solid var(--border-light); flex-wrap: wrap;
+}
+.stat-item { text-align: left; }
+.hero-stat-num { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--text-main); line-height: 1; }
+.hero-stat-label { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; font-family: var(--font-mono); font-weight: 500; }
+
+/* SECTIONS COMMON */
+section { padding: 8rem 2rem; position: relative; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px;
+  color: var(--gold-primary); text-transform: uppercase; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px; font-weight: 600;
+}
+.eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold-primary); }
+.section-h2 {
+  font-family: var(--font-display); font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700; color: var(--text-main);
+  letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem;
+}
+.section-h2 em { color: var(--gold-primary); font-style: italic; }
+.section-lead { font-size: 18px; color: var(--text-muted); line-height: 1.7; max-width: 650px; font-weight: 400; margin-bottom: 4rem; }
+
+/* TAGS */
+.tag { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; background: var(--bg-main); border: 1px solid var(--border-light); color: var(--text-muted); border-radius: 4px; }
+.tag.gold { background: var(--gold-light); border-color: var(--gold-border); color: var(--gold-primary); }
+.tag.slate { background: var(--bg-alt); color: var(--accent-slate); border-color: var(--border-med); }
+
+/* DAILY OS SECTION */
+.daily-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+.daily-cell {
+  background: var(--bg-surface); padding: 2.5rem; border-radius: 8px;
+  border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.daily-cell:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-med); }
+.daily-cell::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--text-faint); transition: background 0.3s; }
+.daily-cell:hover::before { background: var(--text-main); }
+.daily-cell-time { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--gold-primary); letter-spacing: 1px; margin-bottom: 1rem; }
+.daily-cell-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; }
+.daily-cell-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+.daily-cell-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+
+.daily-cell.highlight { border-color: var(--gold-border); background: #FFFCF5; }
+.daily-cell.highlight::before { background: var(--gold-primary); }
+.daily-cell.highlight .daily-cell-title { color: var(--gold-primary); }
+
+/* RITUAL SECTION */
+.ritual-wrapper { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 4rem; box-shadow: var(--shadow-sm); }
+.ritual-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.ritual-col-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--text-main); text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-light); display: flex; align-items: center; gap: 10px; }
+.ritual-item { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; }
+.ritual-item:last-child { margin-bottom: 0; }
+.ritual-num { font-family: var(--font-display); font-size: 32px; font-style: italic; font-weight: 700; color: var(--gold-primary); line-height: 1; flex-shrink: 0; width: 40px; }
+.ritual-text h4 { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+.ritual-text p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* PSYCHOLOGY / PILLARS */
+.pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+.pillar-card {
+  background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px;
+  padding: 3rem 2.5rem; transition: all 0.3s;
+}
+.pillar-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-med); }
+.pillar-icon { font-size: 28px; margin-bottom: 1.5rem; display: inline-block; padding: 12px; background: var(--bg-main); border-radius: 8px; }
+.pillar-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; }
+.pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* DAILY PSYCHOLOGY STACK */
+.psych-stack { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; margin-top: 4rem; }
+.psych-row { display: flex; gap: 2rem; align-items: flex-start; padding: 2.5rem; border-bottom: 1px solid var(--border-light); }
+.psych-row:last-child { border: none; }
+.psych-icon-wrap { width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; background: var(--gold-light); color: var(--gold-primary); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; font-family: var(--font-display); }
+.psych-content h3 { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+.psych-content p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+.psych-content .action { margin-top: 1rem; font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent-slate); letter-spacing: 0.5px; padding: 8px 12px; background: var(--bg-main); border-radius: 4px; display: inline-block; border: 1px solid var(--border-light); }
+
+/* CONFIDENCE ARCHITECTURE */
+.confidence-steps { margin-top: 2rem; position: relative; }
+.confidence-steps::before { content: ''; position: absolute; left: 30px; top: 0; bottom: 0; width: 2px; background: var(--border-light); z-index: 0; }
+.conf-step { display: flex; gap: 3rem; margin-bottom: 3rem; position: relative; z-index: 1; }
+.conf-step:last-child { margin-bottom: 0; }
+.conf-step-num { width: 62px; height: 62px; background: var(--bg-surface); border: 2px solid var(--text-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--text-main); flex-shrink: 0; }
+.conf-step-content { background: var(--bg-surface); padding: 2.5rem; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); flex-grow: 1; }
+.conf-step-content h3 { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
+.conf-step-content p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+/* COMMUNICATION */
+.comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 4rem; }
+.comm-card { background: var(--bg-surface); padding: 3rem; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.comm-card-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 1.5rem; }
+.comm-card h3 { font-size: 22px; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; }
+.comm-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+.comm-card blockquote { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); font-family: var(--font-display); font-size: 18px; color: var(--text-main); font-style: italic; }
+
+/* SCRIPTS ACCORDION */
+.scripts-container { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.script-item { border-bottom: 1px solid var(--border-light); background: #fff; }
+.script-item:last-child { border-bottom: none; }
+.script-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; cursor: pointer; transition: background 0.2s; }
+.script-header:hover { background: var(--bg-main); }
+.script-situation { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 4px; }
+.script-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+.script-arrow { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: var(--bg-main); border-radius: 50%; color: var(--text-main); font-weight: bold; transition: transform 0.3s; }
+.script-item.open .script-arrow { transform: rotate(180deg); background: var(--text-main); color: #fff; }
+.script-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-surface-hover); }
+.script-item.open .script-body { max-height: 600px; }
+.script-body-inner { padding: 0 2rem 2rem; }
+.script-text { font-size: 16px; font-weight: 500; color: var(--text-main); line-height: 1.6; padding: 1.5rem; background: #fff; border-left: 3px solid var(--gold-primary); border-radius: 0 4px 4px 0; margin-bottom: 1rem; box-shadow: var(--shadow-sm); }
+.script-why { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.script-why strong { color: var(--text-main); }
+
+/* HEALTH & BIOHACKING (NEW) */
+.bio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.bio-card { background: var(--text-main); color: #fff; padding: 3rem 2rem; border-radius: 8px; text-align: center; position: relative; overflow: hidden; }
+.bio-card::after { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; transform: translate(30%, -30%); pointer-events: none; }
+.bio-icon { font-size: 32px; margin-bottom: 1.5rem; display: block; }
+.bio-title { font-size: 20px; font-family: var(--font-display); font-weight: 700; margin-bottom: 1rem; letter-spacing: 0.5px; }
+.bio-desc { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 1.5rem; }
+.bio-metric { display: inline-block; font-family: var(--font-mono); font-size: 11px; padding: 6px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; font-weight: 600; letter-spacing: 1px; }
+
+/* CAREER ROADMAP */
+.career-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.roadmap { position: relative; padding-left: 2rem; }
+.roadmap::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border-light); }
+.roadmap-phase { position: relative; margin-bottom: 3.5rem; padding-left: 2rem; }
+.roadmap-phase:last-child { margin-bottom: 0; }
+.roadmap-dot { position: absolute; left: -2.35rem; top: 4px; width: 16px; height: 16px; background: var(--bg-main); border: 3px solid var(--border-med); border-radius: 50%; transition: all 0.3s; }
+.roadmap-phase:first-child .roadmap-dot { border-color: var(--success-color); background: var(--success-color); box-shadow: 0 0 0 4px var(--success-bg); }
+.roadmap-phase-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem; }
+.roadmap-phase-time { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--text-main); letter-spacing: 1px; }
+.roadmap-phase-status { font-family: var(--font-mono); font-size: 10px; padding: 4px 10px; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; font-weight: 600; }
+.status-now { background: var(--success-bg); color: var(--success-color); }
+.status-next { background: var(--gold-light); color: var(--gold-primary); }
+.status-future { background: var(--bg-alt); color: var(--text-muted); }
+.roadmap-phase h3 { font-size: 22px; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; }
+.roadmap-phase p { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+.roadmap-metrics { display: flex; flex-wrap: wrap; gap: 8px; }
+.metric-chip { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.5px; padding: 6px 12px; background: #fff; border: 1px solid var(--border-light); color: var(--text-main); border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+
+.career-principles { background: var(--bg-surface); padding: 3rem; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.principle-row { display: flex; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-light); }
+.principle-row:last-child { margin-bottom: 0; padding-bottom: 0; border: none; }
+.principle-row-num { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--gold-primary); line-height: 1; }
+.principle-row-content h4 { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+.principle-row-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* WEEKLY REVIEW */
+.review-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+.review-card { background: var(--bg-surface); border: 1px solid var(--border-light); padding: 2.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); transition: transform 0.3s; }
+.review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.review-q-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent-slate); letter-spacing: 1px; margin-bottom: 1rem; }
+.review-q { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; line-height: 1.4; }
+.review-hint { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* REALITY MATRIX / CHALLENGES */
+.challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
+.challenge-card { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s, box-shadow 0.3s; }
+.challenge-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.challenge-header { background: #FCF8F8; padding: 1.5rem 2.5rem; border-bottom: 1px solid var(--border-light); }
+.challenge-header h3 { font-size: 18px; font-weight: 700; color: #B3261E; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.challenge-header p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.challenge-body { padding: 2.5rem; }
+.challenge-protocol { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--success-color); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; display: inline-block; padding: 6px 12px; background: var(--success-bg); border-radius: 4px; }
+.challenge-body p { font-size: 15px; color: var(--text-main); line-height: 1.7; }
+
+/* INTERACTIVE CHECKLIST */
+.tracker-section { background: var(--text-main); color: #fff; padding: 6rem 2rem; margin: 4rem 0; }
+.tracker-inner { max-width: 1000px; margin: 0 auto; }
+.tracker-section .eyebrow { color: var(--bg-alt); }
+.tracker-section .eyebrow::before { background: var(--bg-alt); }
+.tracker-section .section-h2 { color: #fff; margin-bottom: 0.5rem; }
+.tracker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+.tracker-col-title { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+.check-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+.check-item:hover { background: rgba(255,255,255,0.06); transform: translateX(4px); }
+.check-item.done { opacity: 0.5; background: transparent; border-color: transparent; transform: none; }
+.check-item.done .check-item-text { text-decoration: line-through; color: var(--text-faint); }
+.checkmark { width: 22px; height: 22px; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.3); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent; transition: all 0.2s; margin-top: 2px; background: rgba(0,0,0,0.2); }
+.check-item.done .checkmark { background: var(--success-color); border-color: var(--success-color); color: #fff; }
+.check-item-text { font-size: 15px; font-weight: 500; color: #fff; line-height: 1.4; margin-bottom: 4px; }
+.check-item-sub { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+/* PROGRESS BAR */
+.progress-container { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; margin-top: 3rem; text-align: center; }
+.prog-header { display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600; }
+.prog-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--success-color); width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+#progress-msg { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 1.5rem; font-style: italic; min-height: 24px; }
+
+/* BIG QUOTE */
+.quote-section { padding: 8rem 2rem; background: var(--bg-surface); text-align: center; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.quote-mark { font-family: var(--font-display); font-size: 120px; color: var(--border-med); line-height: 1; margin-bottom: -3rem; }
+.big-quote { font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: var(--text-main); line-height: 1.3; letter-spacing: -1px; max-width: 800px; margin: 0 auto 2rem; }
+.big-quote em { color: var(--gold-primary); font-style: italic; }
+.quote-author { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; }
+
+/* FOOTER */
+footer { padding: 6rem 2rem 3rem; text-align: center; background: var(--bg-main); }
+.footer-logo { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; }
+.footer-logo span { color: var(--gold-primary); font-style: italic; }
+.footer-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 3rem; }
+.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; list-style: none; margin-bottom: 4rem; }
+.footer-links a { font-size: 12px; font-weight: 600; color: var(--text-main); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; font-family: var(--font-mono); }
+.footer-links a:hover { color: var(--gold-primary); }
+.footer-copy { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 2px; }
+
+/* FADE IN ANIMATIONS */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width: 1024px) {
+  .career-layout { grid-template-columns: 1fr; }
+  .ritual-wrapper { padding: 3rem; }
+}
+@media(max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .hero { padding: 8rem 1.5rem 4rem; }
+  .hero-stats { gap: 2rem; flex-direction: column; align-items: center; text-align: center; }
+  .stat-item { text-align: center; }
+  .ritual-split, .comm-grid, .tracker-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .ritual-wrapper { padding: 2rem 1.5rem; }
+  .bio-grid { grid-template-columns: 1fr; }
+  .conf-step { flex-direction: column; gap: 1.5rem; }
+  .conf-step-content h3 { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .conf-step-tag { align-self: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Apex<span>Mind</span></div>
+  <ul class="nav-links">
+    <li><a href="#daily">Daily OS</a></li>
+    <li><a href="#mindset">Psychology</a></li>
+    <li><a href="#confidence">Confidence</a></li>
+    <li><a href="#communication">Communication</a></li>
+    <li><a href="#bio">Health</a></li>
+    <li><a href="#career">Career</a></li>
+    <li><a href="#reality">Reality Check</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('tracker').scrollIntoView({behavior:'smooth'})">Launch Tracker</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge fade-in">Executive Protocol · Designed for Manish</div>
+    <h1 class="fade-in" style="transition-delay: 0.1s;">
+      The Architecture of<br><em>Unfair Advantage.</em>
+    </h1>
+    <p class="hero-sub fade-in" style="transition-delay: 0.2s;">
+      A ruthlessly practical system for <strong>career domination</strong>, 
+      <strong>elite communication</strong>, <strong>cognitive framing</strong>, 
+      and <strong>biological performance</strong>. Engineered for the operator who refuses to settle.
+    </p>
+    <div class="hero-actions fade-in" style="transition-delay: 0.3s;">
+      <a href="#daily" class="btn-primary">Initialize OS</a>
+      <a href="#career" class="btn-secondary">View Strategy Roadmap</a>
+    </div>
+    
+    <div class="hero-stats fade-in" style="transition-delay: 0.4s;">
+      <div class="stat-item">
+        <div class="hero-stat-num">08</div>
+        <div class="hero-stat-label">Core Modules</div>
+      </div>
+      <div class="stat-item">
+        <div class="hero-stat-num">90</div>
+        <div class="hero-stat-label">Day Horizon</div>
+      </div>
+      <div class="stat-item">
+        <div class="hero-stat-num">₹2.5L</div>
+        <div class="hero-stat-label">Target MRR</div>
+      </div>
+      <div class="stat-item">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Compounding ROI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY OS -->
+<section id="daily">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 01 — Daily Operating System</div>
+    <h2 class="section-h2 fade-in">How you schedule the <em>day</em><br>is how you spend the life.</h2>
+    <p class="section-lead fade-in">Every elite performer has a rigid daily architecture. This is yours — engineered around deep work, strict recovery, and friction-less environments.</p>
+
+    <div class="daily-grid fade-in">
+      <div class="daily-cell">
+        <div class="daily-cell-time">05:30 – 06:00</div>
+        <div class="daily-cell-title">Biological Ignition</div>
+        <div class="daily-cell-desc">Zero tech. Hydrate (500ml water). Light movement or stretching. Your physical state dictates your cognitive output for the rest of the day.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Non-negotiable</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">06:00 – 07:00</div>
+        <div class="daily-cell-title">Cognitive Priming</div>
+        <div class="daily-cell-desc">Read 10 pages. Write 3 granular gratitudes. Identify the One Thing (the task that makes everything else easier). Speak your identity statement.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Psychology</span><span class="tag slate">Clarity</span></div>
+      </div>
+      <div class="daily-cell highlight">
+        <div class="daily-cell-time">07:00 – 09:30</div>
+        <div class="daily-cell-title">Deep Work I : Creation</div>
+        <div class="daily-cell-desc">Peak cognitive window. Code Apex CRM, write features, architect systems. Phone is in another room. No Slack. No email. Pure flow state.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Revenue-Driving</span><span class="tag slate">DND</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">10:00 – 12:00</div>
+        <div class="daily-cell-title">Offensive Communication</div>
+        <div class="daily-cell-desc">Client acquisition, CRM demos, StockLens batch recording, partnership outreach. Use this time to move others.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Sales</span><span class="tag slate">Content</span></div>
+      </div>
+      <div class="daily-cell highlight">
+        <div class="daily-cell-time">14:00 – 16:30</div>
+        <div class="daily-cell-title">Deep Work II : Execution</div>
+        <div class="daily-cell-desc">Secondary heavy lifting. Apex Mobile dev, StockLens infrastructure. Slightly lower cognitive peak than morning, but still highly protected.</div>
+        <div class="daily-cell-tags"><span class="tag gold">Revenue-Driving</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">17:00 – 18:00</div>
+        <div class="daily-cell-title">Skill Accumulation</div>
+        <div class="daily-cell-desc">Study 1 new concept. Market mechanics, advanced React patterns, sales psychology. Knowledge compounds like capital.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Compound</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">20:00 – 21:00</div>
+        <div class="daily-cell-title">CEO Reflection</div>
+        <div class="daily-cell-desc">Log 1 win and 1 lesson. Review the venture board. Schedule tomorrow's blocks. You are the operator by day, the CEO by night.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Strategy</span></div>
+      </div>
+      <div class="daily-cell">
+        <div class="daily-cell-time">21:30 – 22:00</div>
+        <div class="daily-cell-title">System Shutdown</div>
+        <div class="daily-cell-desc">Close all tabs. Prepare tomorrow's clothes/workspace (Frictionless Environment rule). Read fiction or biography. Transition to sleep.</div>
+        <div class="daily-cell-tags"><span class="tag slate">Recovery</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL SECTION -->
+<section id="ritual" style="background: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 02 — Bookend Protocols</div>
+    <h2 class="section-h2 fade-in">The first and last <em>60 minutes</em><br>dictate the entire war.</h2>
+    <p class="section-lead fade-in">These are not "habits." They are neurological bookends. They determine whether you operate proactively or reactively.</p>
+    
+    <div class="ritual-wrapper fade-in">
+      <div class="ritual-split">
+        <div>
+          <div class="ritual-col-label">☀️ Morning — The Launch Sequence</div>
+          <div class="ritual-item"><div class="ritual-num">01</div><div class="ritual-text"><h4>Defend the First 10 Minutes</h4><p>No inputs. No social media. No email. The brain's alpha waves are vulnerable upon waking. Program your own intentions before the world programs its demands.</p></div></div>
+          <div class="ritual-item"><div class="ritual-num">02</div><div class="ritual-text"><h4>Granular Gratitude</h4><p>Instead of "I'm grateful for my health," write "I'm grateful the auth bug is fixed." Specificity triggers dopamine and trains the Reticular Activating System to hunt for wins.</p></div></div>
+          <div class="ritual-item"><div class="ritual-num">03</div><div class="ritual-text"><h4>Vocalize Identity</h4><p>"I am an elite founder building high-leverage software." Say it out loud. The auditory feedback loop physically alters belief structures over a 66-day cycle.</p></div></div>
+        </div>
+        <div>
+          <div class="ritual-col-label">🌙 Evening — The Integration Sequence</div>
+          <div class="ritual-item"><div class="ritual-num">01</div><div class="ritual-text"><h4>The Win & Lesson Ledger</h4><p>Write down 1 win (momentum builder) and 1 lesson (course corrector). Documenting competence prevents Imposter Syndrome from taking root.</p></div></div>
+          <div class="ritual-item"><div class="ritual-num">02</div><div class="ritual-text"><h4>Tomorrow's Battle Plan</h4><p>Write the 3 critical tasks for tomorrow. Decision fatigue is real. Wake up and execute the plan, do not wake up and deliberate over the plan.</p></div></div>
+          <div class="ritual-item"><div class="ritual-num">03</div><div class="ritual-text"><h4>The Frictionless Reset</h4><p>Clear the desk. Close the tabs. Lay out tomorrow's items. Remove all physical and digital friction so tomorrow's deep work block starts flawlessly.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIOHACKING & HEALTH (NEW) -->
+<section id="bio">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 08 — Bio-Performance Baseline</div>
+    <h2 class="section-h2 fade-in">Your business scales only<br>as far as your <em>biology</em> allows.</h2>
+    <p class="section-lead fade-in">You cannot out-work a poor physiological baseline. Sleep, nutrition, and movement are not lifestyle choices; they are performance infrastructure.</p>
+
+    <div class="bio-grid fade-in">
+      <div class="bio-card">
+        <span class="bio-icon">🧬</span>
+        <h3 class="bio-title">Sleep Architecture</h3>
+        <p class="bio-desc">Target 7.5 hours. Keep room at 18°C. Pitch black. Stop caffeine 10 hours before bed. Sleep is when neuroplasticity occurs—it's when the skills you learned today actually wire into your brain.</p>
+        <div class="bio-metric">TARGET: 85%+ SLEEP SCORE</div>
+      </div>
+      <div class="bio-card" style="background: var(--accent-slate);">
+        <span class="bio-icon">⚡</span>
+        <h3 class="bio-title">Caffeine Protocol</h3>
+        <p class="bio-desc">Delay first coffee by 90 minutes after waking to allow natural cortisol to clear adenosine. This eliminates the 2 PM crash entirely. Use caffeine strategically for Deep Work, not purely as a crutch.</p>
+        <div class="bio-metric">RULE: WAIT 90 MINS</div>
+      </div>
+      <div class="bio-card" style="background: var(--gold-primary);">
+        <span class="bio-icon">🩸</span>
+        <h3 class="bio-title">Glucose Stability</h3>
+        <p class="bio-desc">Brain fog is often a glucose crash. High protein breakfasts. Avoid heavy carbs before Deep Work blocks. A stable blood sugar line equates directly to a stable focus and emotional regulation line.</p>
+        <div class="bio-metric">FOCUS: HIGH PROTEIN AM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MINDSET / PSYCHOLOGY -->
+<section id="mindset" style="background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 03 — Psychological Frameworks</div>
+    <h2 class="section-h2 fade-in">The mind is either your<br><em>leverage</em> or your liability.</h2>
+    <p class="section-lead fade-in">The difference between a ₹30k month and a ₹3L month is not just strategy—it is the mental models running in the background.</p>
+
+    <div class="pillars-grid fade-in">
+      <div class="pillar-card">
+        <span class="pillar-icon">🎯</span>
+        <div class="pillar-title">Dichotomy of Control</div>
+        <div class="pillar-desc">Allocate zero mental energy to things outside your control (market shifts, a client's mood). Allocate 100% aggression to your inputs (product quality, outreach volume, personal discipline).</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🔄</span>
+        <div class="pillar-title">Repetition as Firmware</div>
+        <div class="pillar-desc">The brain does not distinguish between reality and vividly imagined experience. Affirmations are not "soft" self-help; they are active neurological rewiring. Repeat the identity until it runs on autopilot.</div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">📉</span>
+        <div class="pillar-title">Sunk Cost Fallacy Override</div>
+        <div class="pillar-desc">If a feature, client, or strategy is failing after proper testing, cut it instantly. Do not let the time you already spent justify wasting more time. Executives make clinical cuts; amateurs hold on to sinking ships.</div>
+      </div>
+    </div>
+
+    <div class="psych-stack fade-in">
+      <div class="psych-row">
+        <div class="psych-icon-wrap">📖</div>
+        <div class="psych-content">
+          <h3>The 10-Minute Mindset Install</h3>
+          <p>Read 10 pages daily. Rotate: Psycho-Cybernetics (Maltz), The Almanack of Naval Ravikant, High Output Management (Grove). Treat these as operating system patches, not casual reading.</p>
+          <div class="action">Standard: Highlight 1 actionable concept daily.</div>
+        </div>
+      </div>
+      <div class="psych-row">
+        <div class="psych-icon-wrap">🚫</div>
+        <div class="psych-content">
+          <h3>Energy Vampire Audits</h3>
+          <p>Every Sunday, identify what drained you. Doomscrolling, specific people, or low-leverage tasks. Negative inputs degrade decision-making capability. Cut them with the same ruthlessness as financial debt.</p>
+          <div class="action">Standard: Block 1 distraction or delegate 1 low-tier task weekly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIDENCE -->
+<section id="confidence">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 04 — Confidence Engineering</div>
+    <h2 class="section-h2 fade-in">Confidence is an <em>accumulation</em><br>of kept promises.</h2>
+    <p class="section-lead fade-in">It is not a personality trait. It is a mathematical equation: Competence + Self-Trust = Unshakeable Confidence.</p>
+
+    <div class="confidence-steps fade-in">
+      <div class="conf-step">
+        <div class="conf-step-num">01</div>
+        <div class="conf-step-content">
+          <h3>The Self-Promise Foundation <span class="tag slate">Core Layer</span></h3>
+          <p>Every time you say you will do something and don't, you erode self-trust. Every kept promise builds it. Start incredibly small: Say you will wake at 6 AM, and do it. Say you will read 10 pages, and do it. This is the base layer.</p>
+        </div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">02</div>
+        <div class="conf-step-content">
+          <h3>Competence Depth <span class="tag slate">Knowledge Layer</span></h3>
+          <p>Pick 3 domains (e.g., React architecture, Indian SMB pain points, Sales psychology). Go 3 levels deeper than anyone else in the room. When you actually *know* more, confidence is no longer performed—it is factual.</p>
+        </div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">03</div>
+        <div class="conf-step-content">
+          <h3>Rejection Desensitization <span class="tag slate">Action Layer</span></h3>
+          <p>Set a goal to collect one "No" every day. Send a bold pitch, make a large ask. The person who fears rejection is controlled by the room. The person who courts it is controlled by no one.</p>
+        </div>
+      </div>
+      <div class="conf-step">
+        <div class="conf-step-num">04</div>
+        <div class="conf-step-content">
+          <h3>Physical Command <span class="tag slate">Presence Layer</span></h3>
+          <p>Posture dictates neurochemistry. Shoulders back, chin level. Speak 20% slower than feels natural. Use silence instead of filler words. Command your physical space to signal authority to both the room and your own amygdala.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNICATION -->
+<section id="communication" style="background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 05 — Executive Communication</div>
+    <h2 class="section-h2 fade-in">Communication is the <em>multiplier</em><br>on all your other skills.</h2>
+    
+    <div class="comm-grid fade-in">
+      <div class="comm-card">
+        <div class="comm-card-label">Rule 01</div>
+        <h3>Listen to Diagnose</h3>
+        <p>Amateurs listen to reply. Professionals listen to diagnose. Let them finish, pause for 2 seconds, and then respond. You will uncover the real problem hidden beneath their stated problem.</p>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-label">Rule 02</div>
+        <h3>Economy of Words</h3>
+        <p>Over-explaining signals low status. State your point, your price, or your boundary, and then stop talking. Do not negotiate against yourself in the silence.</p>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-label">Rule 03</div>
+        <h3>Lead With Their Interest</h3>
+        <p>Nobody cares about your product's features. They care about their own problems. Always frame your solution exactly in the vocabulary they used to describe their pain.</p>
+      </div>
+      <div class="comm-card" style="background: var(--bg-main); border-color: var(--border-med);">
+        <div class="comm-card-label" style="color: var(--text-main);">New: Rule 04</div>
+        <h3>Asynchronous Supremacy</h3>
+        <p>In Slack or Email: State the context, the exact request, and the deadline in the first two sentences. Use bullet points. If an email takes longer than 3 minutes to read, it should be a 5-minute call.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow fade-in" style="margin-top: 5rem;">High-Stakes Scripts</div>
+    <div class="scripts-container fade-in">
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div><div class="script-situation">Sales / Discovery</div><div class="script-title">The "Doctor" Opener</div></div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"Before I show you anything about Apex CRM, could you walk me through exactly how you are currently managing client follow-ups? What is the single most frustrating bottleneck in that process for you today?"</div>
+          <div class="script-why"><strong>The Mechanics:</strong> You position yourself as an authority diagnosing a pain, not a vendor pushing a product. They give you the exact ammunition needed to close the deal.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div><div class="script-situation">Negotiation</div><div class="script-title">Handling "It's Too Expensive"</div></div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"I completely understand managing cash flow. Let me ask you—if price wasn't an object, do you feel this system actually solves the problem we discussed? Because if we aren't aligned on value, the price doesn't matter."</div>
+          <div class="script-why"><strong>The Mechanics:</strong> Isolates the objection. If they say yes, you negotiate terms or scope, not your core value. If they say no, they were never a qualified buyer.</div>
+        </div></div>
+      </div>
+      <div class="script-item" onclick="toggleScript(this)">
+        <div class="script-header">
+          <div><div class="script-situation">Networking</div><div class="script-title">The Peer-Level Question</div></div>
+          <div class="script-arrow">▾</div>
+        </div>
+        <div class="script-body"><div class="script-body-inner">
+          <div class="script-text">"Instead of asking what you do—what is the most complex problem you are trying to solve right now?"</div>
+          <div class="script-why"><strong>The Mechanics:</strong> Elevates you instantly from a "small-talker" to a strategic peer. It forces them to think, and makes you deeply memorable.</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER ROADMAP -->
+<section id="career">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 06 — Empire Architecture</div>
+    <h2 class="section-h2 fade-in">Build the ecosystem<br><em>systematically.</em></h2>
+    
+    <div class="career-layout fade-in" style="margin-top: 4rem;">
+      <div class="roadmap">
+        <div class="roadmap-phase">
+          <div class="roadmap-dot"></div>
+          <div class="roadmap-phase-meta">
+            <span class="roadmap-phase-time">MONTH 01 – 03</span>
+            <span class="roadmap-phase-status status-now">Current Focus</span>
+          </div>
+          <h3>Foundation & Validation</h3>
+          <p>Secure first 3 Apex CRM clients. Ship Apex Mobile MVP. Grow Billionaire Thinking to 10k. Install the OS daily habits.</p>
+          <div class="roadmap-metrics">
+            <span class="metric-chip">3 B2B Clients</span>
+            <span class="metric-chip">₹30k MRR</span>
+            <span class="metric-chip">MVP Live</span>
+          </div>
+        </div>
+        <div class="roadmap-phase">
+          <div class="roadmap-dot"></div>
+          <div class="roadmap-phase-meta">
+            <span class="roadmap-phase-time">MONTH 04 – 08</span>
+            <span class="roadmap-phase-status status-next">Scale Phase</span>
+          </div>
+          <h3>Systematization</h3>
+          <p>Scale to 10 CRM clients. Launch StockLens paid tier. Hire 1 Virtual Assistant for admin/social. Transition from doing everything to managing systems.</p>
+          <div class="roadmap-metrics">
+            <span class="metric-chip">10 B2B Clients</span>
+            <span class="metric-chip">₹80k MRR</span>
+            <span class="metric-chip">First Hire</span>
+          </div>
+        </div>
+        <div class="roadmap-phase">
+          <div class="roadmap-dot"></div>
+          <div class="roadmap-phase-meta">
+            <span class="roadmap-phase-time">MONTH 09 – 12</span>
+            <span class="roadmap-phase-status status-future">Dominance</span>
+          </div>
+          <h3>Ecosystem Synergy</h3>
+          <p>Hit ₹2.55L total MRR. Launch TripBuddy. Cross-pollinate audiences. You act as CEO—directing capital, strategy, and top-tier talent.</p>
+          <div class="roadmap-metrics">
+            <span class="metric-chip">₹2.5L+ MRR</span>
+            <span class="metric-chip">3 Asset Ecosystem</span>
+            <span class="metric-chip">CEO Mode</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="career-principles">
+        <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">Career Laws</h3>
+        <div class="principle-row">
+          <div class="principle-row-num">01</div>
+          <div class="principle-row-content">
+            <h4>Build Assets, Not Income</h4>
+            <p>Code, audience, and client lists are equity. Freelance hours are just income. Always bias towards building things that compound while you sleep.</p>
+          </div>
+        </div>
+        <div class="principle-row">
+          <div class="principle-row-num">02</div>
+          <div class="principle-row-content">
+            <h4>Revenue is Truth</h4>
+            <p>If the strategy is brilliant but MRR isn't growing after 90 days, the strategy is wrong. The market is the only judge that matters. Pivot cleanly.</p>
+          </div>
+        </div>
+        <div class="principle-row">
+          <div class="principle-row-num">03</div>
+          <div class="principle-row-content">
+            <h4>Operate at High Leverage</h4>
+            <p>If a task costs ₹500/hr to outsource, and you want to make ₹5,000/hr, doing that task yourself is costing you money. Delegate low-leverage work fast.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY REVIEW -->
+<section id="review" style="background: var(--bg-surface); border-top: 1px solid var(--border-light);">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 07 — The Feedback Loop</div>
+    <h2 class="section-h2 fade-in">Execution without reflection<br>is merely <em>hallucination.</em></h2>
+    
+    <div class="review-cards fade-in" style="margin-top: 3rem;">
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY PROTOCOL</div>
+        <div class="review-q">What was the highest-leverage win this week?</div>
+        <div class="review-hint">Identify the 20% of effort that yielded 80% of the results. Double down on that specific action next week.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">SUNDAY PROTOCOL</div>
+        <div class="review-q">What is the current bottleneck?</div>
+        <div class="review-hint">Is it lead flow? Conversion? Product bugs? Your own energy? Name the constraint so you can violently attack it on Monday.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-q-num">QUARTERLY PROTOCOL</div>
+        <div class="review-q">Am I managing weaknesses or scaling strengths?</div>
+        <div class="review-hint">Stop trying to be good at everything. Be world-class at architecture and sales; buy or partner for the rest.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REALITY MATRIX (CHALLENGES) -->
+<section id="reality" style="background: var(--bg-alt); border-top: 1px solid var(--border-light);">
+  <div class="section-inner">
+    <div class="eyebrow fade-in">Module 09 — The Reality Matrix</div>
+    <h2 class="section-h2 fade-in">Theory is clean.<br><em>Execution is violent.</em></h2>
+    <p class="section-lead fade-in">This system will be tested by real-world entropy. Here are the exact friction points that derail ambitious operators, and the uncompromising protocols to neutralize them.</p>
+
+    <div class="challenge-grid fade-in">
+      <div class="challenge-card">
+        <div class="challenge-header">
+          <h3>⚠️ The "Perfect Day" Trap</h3>
+          <p>Missing your 5:30 AM wake-up and writing off the whole day.</p>
+        </div>
+        <div class="challenge-body">
+          <span class="challenge-protocol">Protocol: The 4-Quarter Rule</span>
+          <p>Amateurs let one failure ruin a 24-hour cycle. Professionals divide the day into quarters: Morning (5-9), Midday (9-1), Afternoon (1-5), Evening (5-9). If you fail the morning quarter, you wipe the slate completely clean. You don't lose the day; you just restart and win the midday quarter. Never miss twice.</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-header">
+          <h3>⚠️ Client Firefighting</h3>
+          <p>A client "emergency" blows up your morning Deep Work block.</p>
+        </div>
+        <div class="challenge-body">
+          <span class="challenge-protocol">Protocol: SLA Boundary Enforcement</span>
+          <p>Turn off Slack/Email notifications during Deep Work. A 2.5-hour delay in your response will <em>never</em> kill a business. If it is a true life-or-death fire, they will call your phone twice. Train your clients on your communication speed—do not let their lack of planning become your emergency.</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-header">
+          <h3>⚠️ Social Sabotage</h3>
+          <p>Friends or family resenting your new boundaries and unavailability.</p>
+        </div>
+        <div class="challenge-body">
+          <span class="challenge-protocol">Protocol: The High-Stakes Frame</span>
+          <p>People disrespect "I'm busy." They respect "I'm in a 90-day sprint for a launch." Frame your absence as a temporary, high-stakes career necessity, not a personal rejection of them. Do not apologize for protecting your assets. If they still push back, they belong in a different tier of your network.</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-header">
+          <h3>⚠️ The Week-3 Motivation Dip</h3>
+          <p>The initial excitement fades. The system suddenly feels exhausting.</p>
+        </div>
+        <div class="challenge-body">
+          <span class="challenge-protocol">Protocol: Structural Automation</span>
+          <p>Motivation is a chemical spike designed by evolution to fade. When the dip hits, do not rely on willpower. Rely strictly on your frictionless environment. Put the phone in another room. Lay out the work tools the night before. Stop negotiating with yourself in your head. Just execute the inputs mechanically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE TRACKER -->
+<div id="tracker" class="tracker-section">
+  <div class="tracker-inner">
+    <div class="eyebrow fade-in">Daily Execution Dashboard</div>
+    <h2 class="section-h2 fade-in">The score takes care of itself<br>if you <em>execute the inputs.</em></h2>
+    <p style="font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 0;">Check these boxes daily. Do not break the chain.</p>
+
+    <div class="tracker-grid fade-in">
+      <div>
+        <div class="tracker-col-title">Morning & Bio</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Slept 7.5+ Hours</div><div class="check-item-sub">Neuroplasticity and cognitive baseline secured.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">First 10 Mins Tech-Free</div><div class="check-item-sub">Alpha brainwaves protected from reactive inputs.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Delayed Caffeine 90 Mins</div><div class="check-item-sub">Adenosine cleared; afternoon crash prevented.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Identity & Gratitude Written</div><div class="check-item-sub">Psychological framing for the day is set.</div></div>
+        </div>
+
+        <div class="tracker-col-title" style="margin-top: 3rem;">Deep Work & Output</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Deep Work Block I Complete</div><div class="check-item-sub">2.5 hours of uninterrupted creation.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">1 Sales/Partnership Outreach</div><div class="check-item-sub">Revenue generation initiated.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Deep Work Block II Complete</div><div class="check-item-sub">Secondary execution block finished.</div></div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="tracker-col-title">Confidence & Edge</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">1 High-Friction Action</div><div class="check-item-sub">Collected a "No" or did the hard thing first.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Skill Acquisition (30 Mins)</div><div class="check-item-sub">Studied market, code, or communication.</div></div>
+        </div>
+
+        <div class="tracker-col-title" style="margin-top: 3rem;">Evening Reset</div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Win & Lesson Ledger Updated</div><div class="check-item-sub">Documented progress, extracted wisdom.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Tomorrow's Top 3 Planned</div><div class="check-item-sub">Decision fatigue removed for tomorrow morning.</div></div>
+        </div>
+        <div class="check-item" onclick="check(this)">
+          <div class="checkmark">✓</div>
+          <div><div class="check-item-text">Frictionless Environment Reset</div><div class="check-item-sub">Workspace cleared. Ready for launch.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-container fade-in" id="progress-wrap" style="display:none;">
+      <div class="prog-header"><span>Daily System Adherence</span><span id="prog-pct" style="color: var(--success-color);">0%</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+      <p id="progress-msg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- BIG QUOTE -->
+<div class="quote-section">
+  <div class="quote-mark">"</div>
+  <div class="big-quote">The version of you capable of building the empire already exists. Your only job is to <em>become them</em>—systematically, relentlessly, daily.</div>
+  <div class="quote-author">Apex Mind · Executive Protocol</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="section-inner">
+    <div class="footer-logo">Apex<span>Mind</span></div>
+    <div class="footer-sub">Executive Protocol · Bio-Performance · Psychology · Strategy</div>
+    <ul class="footer-links">
+      <li><a href="#daily">Daily OS</a></li>
+      <li><a href="#bio">Health</a></li>
+      <li><a href="#mindset">Psychology</a></li>
+      <li><a href="#confidence">Confidence</a></li>
+      <li><a href="#communication">Communication</a></li>
+      <li><a href="#career">Roadmap</a></li>
+      <li><a href="#reality">Reality Check</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 APEX MIND. ENGINEERED FOR MANISH.</div>
+  </div>
+</footer>
+
+<script>
+// Fade in on scroll Observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Scripts Accordion Toggle
+function toggleScript(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.script-item').forEach(s => s.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+
+// Interactive Tracker Logic
+let done = 0;
+function check(el) {
+  el.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.check-item').length;
+  const checked = document.querySelectorAll('.check-item.done').length;
+  const pct = Math.round((checked / all) * 100);
+  
+  const wrap = document.getElementById('progress-wrap');
+  wrap.style.display = 'block';
+  
+  // A small timeout allows the display:block to render before transitioning width
+  setTimeout(() => {
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+    
+    const msgs = [
+      'System initiated. Execution is everything.',
+      'Momentum building. Keep compounding the inputs.',
+      'Over halfway. You are outperforming the majority.',
+      'Elite territory. Finish the protocol strong.',
+      '100% Adherence. Today was a masterpiece. Rest well.'
+    ];
+    const idx = pct === 100 ? 4 : pct >= 75 ? 3 : pct >= 50 ? 2 : pct > 0 ? 1 : 0;
+    document.getElementById('progress-msg').textContent = msgs[idx];
+    
+    // Change color based on completion
+    const fill = document.getElementById('prog-fill');
+    const pctText = document.getElementById('prog-pct');
+    if(pct === 100) {
+      fill.style.background = '#F1C40F'; // Gold on 100%
+      pctText.style.color = '#F1C40F';
+    } else {
+      fill.style.background = 'var(--success-color)';
+      pctText.style.color = 'var(--success-color)';
+    }
+  }, 50);
+}
+</script>
+</body>
+</html>
